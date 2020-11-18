@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body onload="startTime()">
+  <h1 class="header1">Data Mahasiswa</h1>
+    <div class="page1">
+      <h2 class="header2">Hello, Mahasiswa!! <div id="jam" class="jam col-1 left"></div></h2>
+      <p style="font-style: oblique;">Usaha keras tidak akan menghianati hasil, tapi bisa menghianati impian</p>
+    </div>
+      
+  <hr class="garis">
+    <div class="content">
+        <form id="form" class="row">
+          <label for="Nim" class="col-25">Nim</label>
+          <input type="number"  id="nim" class="nim col-75" style="width: 96%;" placeholder="Nomor Induk Mahasiswa"/></br>
+          <label for="nama" class="col-25">Nama Lengkap</label>
+          <input type="text" id="nama" class="nama col-75" style="width: 96%;" placeholder="Nama Lengkap"/></br>
+          <label for="Alamat" class="col-25">Alamat</label>
+          <input type="text"  id="alamat" class="alamat col-75" style="width: 96%;" placeholder="Alamat Tempat Tanggal Lahir"/>
+          <input type="reset" value="&#8634; Reset" class="reset reset1 col-25"></br>
+        </form>
+      <button onclick="menambah()" class="tambah reset1 col-25" id="rsc">&#43; Tambah</button></br>
+    </div>  
+  <hr class="garis">
+    
+  <table id="users">
+    <thead>
+      <tr>
+        <th>NIM</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th style="width: 7%">Pengaturan</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+    
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+        <div class="modal-header">
+          <h1>Added!</h1>
+        </div>
+        <div class="modal-body">
+          <p>Data Mahasiswa Baru Telah Ditambahkan</p>
+        </div>
+    </div>
+  </div>
+      
+
+  <div id="myModal_deleted" class="modal_deleted">
+    <div class="modal-content_deleted">
+      <span class="close1">&times;</span>
+        <div class="modal-header_deleted">
+          <h1>Deleted!</h1>
+        </div>
+        <div class="modal-body_deleted">
+          <p>Data Mahasiswa Berhasil Dihapus</p>
+        </div>
+    </div>
+  </div>
+     
+
+  <div id="myModal_edited" class="modal_edited">
+    <div class="modal-content_edited">
+        <span class="close2">&times;</span>
+          <div class="modal-header_edited">
+            <h1>Edit Data</h1>
+          </div>
+          <div class="modal-body_edited">
+            <label for="Nim">Nim</label>
+            <input type="number"  id="nimedit" class="nim" placeholder="Nomor Induk Mahasiswa" disabled/></br>
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="namaedit" class="nama" placeholder="Nama Lengkap"/></br>
+            <label for="Alamat">Alamat</label>
+            <input type="text"  id="alamatedit" class="alamat" placeholder="Alamat Tempat Tanggal Lahir"/></br>
+            <button onclick="cancel()" id="cancel" class="cancel col-25">Cancel</button> 
+            <button onclick="simpan()" id="save" class="save col-24">Save</button></br>
+          </div>
+      </div>
+    </div>
+    
+
+  <div id="myModal_warning" class="modal_warning">
+      <div class="modal-content_warning">
+        <span class="close3">&times;</span>
+          <div class="modal-header_warning">
+            <h1>Warning!</h1>
+          </div>
+          <div class="modal-body_warning">
+            <p>Tidak Dapat Menambah Mahasiswa</p>
+          </div>
+      </div>
+  </div>
+
+
+  <div id="myModal_update" class="modal_update">
+     <div class="modal-content_update">
+        <span class="close4">&times;</span>
+          <div class="modal-header_update">
+            <h1>Updated!</h1>
+          </div>
+          <div class="modal-body_update">
+           <p>Data Mahasiswa Berhasil Di Perbaharui</p>
+          </div>
+      </div>
+  </div>
+      
+    
+<script> 
+//*UNTUK MODAL (GABISA DIPISAH(eksternal) PAK, nanti ada error)*//
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0]; 
+function menambahdata() {
+modal.style.display = "block";
+}
+span.onclick = function() {
+modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+/*Modal Delete*/
+var modal_deleted = document.getElementById("myModal_deleted");
+var span = document.getElementsByClassName("close1")[0]; 
+function deletedata() {
+modal_deleted.style.display = "block";
+}
+span.onclick = function() {
+modal_deleted.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal_deleted.style.display = "none";
+  }
+}
+
+/*Modal Edit*/
+var modal_edited = document.getElementById("myModal_edited");
+var span = document.getElementsByClassName("close2")[0]; 
+function editdata() {
+modal_edited.style.display = "block";
+}
+span.onclick = function() {
+modal_edited.style.display = "none";
+}
+function cancel(){
+  modal_edited.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal_edited.style.display = "none";
+  }
+}
+
+/*Modal Warning*/
+var modal_warning = document.getElementById("myModal_warning");
+var span = document.getElementsByClassName("close3")[0]; 
+function warningdata() {
+modal_warning.style.display = "block";
+}
+span.onclick = function() {
+modal_warning.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal_warning.style.display = "none";
+  }
+}
+
+/*Modal Update*/
+var modal_update = document.getElementById("myModal_update");
+var span = document.getElementsByClassName("close4")[0]; 
+function tampil() {
+modal_update.style.display = "block";
+}
+span.onclick = function() {
+modal_update.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal_update.style.display = "none";
+  }
+}
+</script>  
+</body>
+</html>
